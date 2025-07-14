@@ -1,4 +1,4 @@
-### directory structure
+### Directory Structure
 
 ````
 src/
