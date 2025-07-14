@@ -1,20 +1,17 @@
-### Directory Structure
+# 📦API-store
+Um back-end desenvolvido em SpringBoot para gerenciamento de um e-commerce simples, com endpoints REST para produtos, categorias, compras e etc.
 
-````
-src/
-└── main/
-    └── java/
-       └── com.javaflix.javaflix/
-            ├── config/                 # The class initelize with the program
-            ├── dto/                    # The class for data transfer
-            ├── entities/               # Entities with the business logic
-            │   └── enums/              # enumerated types
-            │   └── pk/                 # Complex key
-            ├── repositories/           # Interface with data access
-            ├── service/                # Business logic
-            ├── resources/              # Controllers
-````
+## 🔧Tecnologias
 
-### Diagram Class
+- Java
+- SpringBoot
+- Gradle
 
-![img.png](diagram_class.png)
+**Dependências:**
+
+- spring-boot-starter
+- spring-boot-starter-web:3.5.3
+- spring-boot-starter-data-jpa
+- spring-boot-starter-test
+- org.junit.platform:junit-platform-launcher
+- com.h2database:h2:2.3.232
