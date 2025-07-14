@@ -1,6 +1,5 @@
 package com.program.webspringboot.service;
 
-import com.program.webspringboot.dto.UserDTO;
 import com.program.webspringboot.entities.User;
 import com.program.webspringboot.repositories.UserReposiroty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,30 +23,22 @@ public class UserService {
         return userReposiroty.findAll();
     }
 
-    public UserDTO insert(UserDTO userDTO) {
-        User userEntity = new User();
-        userEntity.setId(null);
-        userEntity.setName(userDTO.getName());
-        userEntity.setEmail(userDTO.getEmail());
-        userEntity.setPhone(userDTO.getPhone());
-        userEntity.setPassword(userDTO.getPassword());
-
-        userEntity = userReposiroty.save(userEntity);
-
-        return new UserDTO(userEntity);
+    public User insert(User user) {
+        User userEntity = userReposiroty.save(user);
+        return userEntity;
     }
 
     public void delete(Long id) {
         userReposiroty.deleteById(id);
     }
 
-    public UserDTO update(Long id, UserDTO userDTO) {
+    public User update(Long id, User user) {
         User userEntity = userReposiroty.getReferenceById(id);
-        userEntity.setName(userDTO.getName());
-        userEntity.setEmail(userDTO.getEmail());
-        userEntity.setPhone(userDTO.getPhone());
+        userEntity.setName(user.getName());
+        userEntity.setEmail(user.getEmail());
+        userEntity.setPhone(user.getPhone());
         userEntity = userReposiroty.save(userEntity);
-        return new UserDTO(userEntity);
+        return userEntity;
     }
 
 }

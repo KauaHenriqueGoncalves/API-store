@@ -1,6 +1,5 @@
 package com.program.webspringboot.resources;
 
-import com.program.webspringboot.dto.UserDTO;
 import com.program.webspringboot.entities.User;
 import com.program.webspringboot.service.UserService;
 
@@ -21,35 +20,32 @@ public class UserResource {
     private UserService service;
 
     @GetMapping
-    public ResponseEntity<List<UserDTO>> findAll() {
+    public ResponseEntity<List<User>> findAll() {
         List<User> users = service.findAll();
-        List<UserDTO> userDTOs = users.stream()
-                .map(user -> new UserDTO(user))
-                .collect(Collectors.toList());
-        return ResponseEntity.ok().body(userDTOs);
+        return ResponseEntity.ok().body(users);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
-        UserDTO userDTO = new UserDTO(service.findById(id));
-        return ResponseEntity.ok().body(userDTO);
+    public ResponseEntity<User> findById(@PathVariable Long id) {
+        User user = service.findById(id);
+        return ResponseEntity.ok().body(user);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody UserDTO userDTO) {
-        userDTO = service.update(id, userDTO);
-        return ResponseEntity.ok().body(userDTO);
+    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user) {
+        user = service.update(id, user);
+        return ResponseEntity.ok().body(user);
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> create(@RequestBody UserDTO userDTO) {
-        userDTO = service.insert(userDTO);
+    public ResponseEntity<User> create(@RequestBody User user) {
+        user = service.insert(user);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(userDTO.getId())
+                .buildAndExpand(user.getId())
                 .toUri();
-        return ResponseEntity.created(uri).body(userDTO);
+        return ResponseEntity.created(uri).body(user);
     }
 
     @DeleteMapping(value = "/{id}")

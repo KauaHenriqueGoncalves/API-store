@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDTO implements Serializable {
+public class UserDto implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -20,9 +20,9 @@ public class UserDTO implements Serializable {
     private String password;
     private List<Order> orders = new ArrayList<>();
 
-    public UserDTO() {}
+    public UserDto() {}
 
-    public UserDTO(User user) {
+    public UserDto(User user) {
         BeanUtils.copyProperties(user, this);
     }
 
@@ -42,20 +42,20 @@ public class UserDTO implements Serializable {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPhone() {
         return phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -69,5 +69,4 @@ public class UserDTO implements Serializable {
     public List<Order> getOrders() {
         return orders;
     }
-
 }
