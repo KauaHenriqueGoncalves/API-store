@@ -60,8 +60,16 @@ public class OrderDto implements Serializable {
         return client;
     }
 
+    public void setClient(User client) {
+        this.client = client;
+    }
+
     public Set<OrderItem> getOrderItems() {
         return orderItems;
+    }
+
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     public Payment getPayment() {

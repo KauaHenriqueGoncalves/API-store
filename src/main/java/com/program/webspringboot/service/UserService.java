@@ -14,22 +14,18 @@ public class UserService {
     @Autowired
     private UserReposiroty userReposiroty;
 
+    public List<User> findAll() {
+        return userReposiroty.findAll();
+    }
+
     public User findById(Long id) {
         Optional<User> user = userReposiroty.findById(id);
         return user.get();
     }
 
-    public List<User> findAll() {
-        return userReposiroty.findAll();
-    }
-
     public User insert(User user) {
         User userEntity = userReposiroty.save(user);
         return userEntity;
-    }
-
-    public void delete(Long id) {
-        userReposiroty.deleteById(id);
     }
 
     public User update(Long id, User user) {
@@ -39,6 +35,10 @@ public class UserService {
         userEntity.setPhone(user.getPhone());
         userEntity = userReposiroty.save(userEntity);
         return userEntity;
+    }
+
+    public void delete(Long id) {
+        userReposiroty.deleteById(id);
     }
 
 }
