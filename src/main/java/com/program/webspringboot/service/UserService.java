@@ -4,6 +4,7 @@ import com.program.webspringboot.entities.User;
 import com.program.webspringboot.repositories.UserReposiroty;
 import com.program.webspringboot.service.exceptions.DataBaseException;
 import com.program.webspringboot.service.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -34,12 +35,17 @@ public class UserService {
     }
 
     public User update(Long id, User user) {
-        User userEntity = userReposiroty.getReferenceById(id);
-        userEntity.setName(user.getName());
-        userEntity.setEmail(user.getEmail());
-        userEntity.setPhone(user.getPhone());
-        userEntity = userReposiroty.save(userEntity);
-        return userEntity;
+        try {
+            User userEntity = userReposiroty.getReferenceById(id);
+            userEntity.setName(user.getName());
+            userEntity.setEmail(user.getEmail());
+            userEntity.setPhone(user.getPhone());
+            userEntity = userReposiroty.save(userEntity);
+            return userEntity;
+        }
+        catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("User not found with id " + id);
+        }
     }
 
     public void delete(Long id) {
