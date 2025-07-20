@@ -2,7 +2,10 @@ package com.program.webspringboot.service;
 
 import com.program.webspringboot.entities.User;
 import com.program.webspringboot.repositories.UserReposiroty;
+import com.program.webspringboot.service.exceptions.DataBaseException;
+import com.program.webspringboot.service.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +23,9 @@ public class UserService {
 
     public User findById(Long id) {
         Optional<User> user = userReposiroty.findById(id);
-        return user.get();
+        return user.orElseThrow(() -> {
+            throw new ResourceNotFoundException("User not found with id " + id);
+        });
     }
 
     public User insert(User user) {
@@ -38,7 +43,14 @@ public class UserService {
     }
 
     public void delete(Long id) {
-        userReposiroty.deleteById(id);
+        Optional<User> user = userReposiroty.findById(id);
+        try {
+            if (user.isPresent()) userReposiroty.deleteById(id);
+            else throw new ResourceNotFoundException("User not found with id " + id);
+        }
+        catch (DataIntegrityViolationException err) {
+            throw new DataBaseException(err.getMessage());
+        }
     }
 
 }
