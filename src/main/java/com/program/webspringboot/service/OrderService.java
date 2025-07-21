@@ -3,6 +3,7 @@ package com.program.webspringboot.service;
 import com.program.webspringboot.dto.OrderDto;
 import com.program.webspringboot.entities.Order;
 import com.program.webspringboot.repositories.OrderRepository;
+import com.program.webspringboot.service.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class OrderService {
         if (order.isPresent()) {
             return new OrderDto(order.get());
         }
-        return null;
+        throw new ResourceNotFoundException("Order not found");
     }
 
     public OrderDto insert(OrderDto orderDto) {
